@@ -101,16 +101,16 @@ class QuestionSimple(Question):
         self.questionnaire_id = questionnaire
         db.session.add(self)
         db.session.commit()
-    def __init__(self,request,id):
-        self.id = len(Question.query.all())+1
-        self.title = request['title']
-        self.reponse = request['reponse']
-        self.questionType = 'Simple'
-        self.questionnaire_id = id
-        self.p1 = request['p1']
-        self.p2 = request['p2']
-        db.session.add(self)
-        db.session.commit()
+    # def __init__(self,request,id):
+    #     self.id = len(Question.query.all())+1
+    #     self.title = request['title']
+    #     self.reponse = request['reponse']
+    #     self.questionType = 'Simple'
+    #     self.questionnaire_id = id
+    #     self.p1 = request['p1']
+    #     self.p2 = request['p2']
+    #     db.session.add(self)
+    #     db.session.commit()
     def to_json(self):
         json = {
             'id': self.id ,
@@ -148,18 +148,18 @@ class QuestionMultiple(Question):
         self.questionnaire_id = questionnaire
         db.session.add(self)
         db.session.commit()
-    def __init__(self,request,id):
-        self.id = len(Question.query.all())+1
-        self.title = request['title']
-        self.p1 = request['p1']
-        self.p2 = request['p2']
-        self.p3 = request['p3']
-        self.p4 = request['p4']
-        self.reponse = request['reponse']
-        self.questionType = 'Multiple'
-        self.questionnaire_id = id
-        db.session.add(self)
-        db.session.commit()
+    # def __init__(self,request,id):
+    #     self.id = len(Question.query.all())+1
+    #     self.title = request['title']
+    #     self.p1 = request['p1']
+    #     self.p2 = request['p2']
+    #     self.p3 = request['p3']
+    #     self.p4 = request['p4']
+    #     self.reponse = request['reponse']
+    #     self.questionType = 'Multiple'
+    #     self.questionnaire_id = id
+    #     db.session.add(self)
+    #     db.session.commit()
     def to_json(self):
         json = {
             'id': self.id ,
