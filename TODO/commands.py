@@ -49,5 +49,13 @@ def creaQuestion():
     db.session.add(q1)
     db.session.add(q2)
     db.session.add(q3)
+    q2 = Questionnaire("Questionnaire 2")
+    db.session.add(q2)
+    db.session.commit()
+    q1 = QuestionSimple("Question 1","crampte",2,'crampte','non')
+    q2 = QuestionSimple("Question 2","crampte",2,'crampte','oui')
+    db.session.add(q1)
+    db.session.add(q2)
+    
     db.session.commit()
     print("Questionnaire créé avec succès")
