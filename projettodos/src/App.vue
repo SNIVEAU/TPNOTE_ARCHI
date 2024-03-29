@@ -1,11 +1,9 @@
 <script setup>
-import { ref } from 'vue';
 import TodoItem from './components/TodoItem.vue';
+import Questionnaire from './components/Questionnaire.vue';
 
+import { ref, onMounted } from 'vue';
 
-</script>
-
-<script>
 const data = ref([]);
 
 const fetchTask = async () => {
@@ -16,60 +14,33 @@ const fetchTask = async () => {
         }
     };
     try {
-        const response = await fetch(`http://localhost:5000/quiz/api/v1.0/tasks?_limit=20`, options);
+        const response = await fetch(`http://127.0.0.1:5000/quiz/api/v2.0/questionnaires`, options);
         const json = await response.json();
-        data.value = json;
-        console.log(data.value); // Ajout du console.log pour afficher les données initialisées
+        data.value = json.questionnaires; // Assigner seulement les questionnaires à la référence de données
     } catch (err) {
         console.log('Error getting documents', err);
-        data.value = [];
+        data.value = []; // Assurez-vous que data.value est une liste vide en cas d'erreur
     }
 };
-export default {
-    data() {
-        return {
-            title: "Liste de tâches",
-            nouvelleTache: ''
-        };
-    },
 
-    async created() {
-        await fetchTask();
-    },
-
-    methods: {
-        ajouterTache() {
-            this.data.push({ text: this.nouvelleTache, checked: false });
-            console.log(this.data);
-            this.nouvelleTache = '';
-        },
-        removeTask(task) {
-            this.data = this.data.filter(todo => todo.id !== task.id);
-        },
-        updateTask(task) {
-            this.data = this.data.map(todo => {
-                if (todo.id === task.id) {
-                    return task;
-                }
-                return todo;
-            });
-        }
-    }
-};
+onMounted(fetchTask); // Appeler fetchTask lors de l'initialisation du composant
 </script>
 
 <template>
-    <div>
-        <h1>{{ title }}</h1>
-        <ul>
-            <TodoItem v-for="task in data" :key="task.id" :todo="task" @remove="removeTask"></TodoItem>
-        </ul>
-        <hr />
-        <em>Ajouter une tâche</em>
-        <input v-model="nouvelleTache" type="text" />
-        <button @click="ajouterTache">Ajouter</button>
-    </div>
+  <div>
+    <h1 v-if="data.length === 0">Chargement en cours...</h1> <!-- Afficher un message de chargement pendant que les données sont récupérées -->
+    <h1 v-else>{{ data }}</h1> <!-- Afficher les données une fois récupérées -->
+    <ul v-if="data.length > 0">
+      <Questionnaire v-for="questionnaire in data" :key="questionnaire.id" :questionnaire="questionnaire"></Questionnaire>
+    </ul>
+    <hr />
+    <em>Ajouter une tâche</em>
+    <input v-model="nouvelleTache" type="text" />
+    <button @click="ajouterTache">Ajouter</button>
+  </div>
 </template>
+
+
 
 <style scoped>
 .logo {
