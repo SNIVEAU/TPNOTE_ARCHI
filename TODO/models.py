@@ -37,7 +37,7 @@ class Questionnaire (db.Model):
 
             json ={
             'id': self.id ,
-            'name ':self.name ,
+            'name':self.name ,
             'questions':[q.to_json() for q in self.questions]}
         return json
     def __init__(self,name):
@@ -59,7 +59,7 @@ class Question (db.Model):
     def to_json(self):
         json = {
             'id': self.id ,
-        'title ':self.title ,
+        'title':self.title ,
         'reponse':self.reponse,
         'questionType':self.questionType,
 
@@ -114,7 +114,7 @@ class QuestionSimple(Question):
     def to_json(self):
         json = {
             'id': self.id ,
-        'title ':self.title ,
+        'title':self.title ,
         'reponse':self.reponse,
         'questionType':self.questionType,
         'p1':self.p1,

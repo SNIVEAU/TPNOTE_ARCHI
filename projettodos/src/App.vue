@@ -16,27 +16,23 @@ const fetchTask = async () => {
     try {
         const response = await fetch(`http://127.0.0.1:5000/quiz/api/v2.0/questionnaires`, options);
         const json = await response.json();
-        data.value = json.questionnaires; // Assigner seulement les questionnaires à la référence de données
+        data.value = json.questionnaires; 
     } catch (err) {
         console.log('Error getting documents', err);
-        data.value = []; // Assurez-vous que data.value est une liste vide en cas d'erreur
+        data.value = []; 
     }
 };
 
-onMounted(fetchTask); // Appeler fetchTask lors de l'initialisation du composant
+onMounted(fetchTask); 
 </script>
 
 <template>
   <div>
-    <h1 v-if="data.length === 0">Chargement en cours...</h1> <!-- Afficher un message de chargement pendant que les données sont récupérées -->
-    <h1 v-else>{{ data }}</h1> <!-- Afficher les données une fois récupérées -->
-    <ul v-if="data.length > 0">
       <Questionnaire v-for="questionnaire in data" :key="questionnaire.id" :questionnaire="questionnaire"></Questionnaire>
-    </ul>
     <hr />
-    <em>Ajouter une tâche</em>
+    <!-- <em>Ajouter une tâche</em>
     <input v-model="nouvelleTache" type="text" />
-    <button @click="ajouterTache">Ajouter</button>
+    <button @click="ajouterTache">Ajouter</button> -->
   </div>
 </template>
 
